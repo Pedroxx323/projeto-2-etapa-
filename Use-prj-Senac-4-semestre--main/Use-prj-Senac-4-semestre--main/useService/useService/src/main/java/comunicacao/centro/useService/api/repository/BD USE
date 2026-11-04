@@ -1,0 +1,126 @@
+/*
+-- ==========================================
+-- BANCO DE DADOS: USE SP
+-- ==========================================
+
+CREATE DATABASE IF NOT EXISTS use_sp
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE use_sp;
+
+-- ==========================================
+-- 1. TABELA USUARIO
+-- ==========================================
+
+CREATE TABLE USUARIO (
+    id_usuario VARCHAR(50) PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    data_cadastro DATE NOT NULL
+);
+
+-- ==========================================
+-- 2. TABELA CENTRO
+-- ==========================================
+
+CREATE TABLE CENTRO (
+    id_centro VARCHAR(50) PRIMARY KEY,
+    id_usuario VARCHAR(50) NOT NULL,
+    nome VARCHAR(150) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+
+    CONSTRAINT fk_centro_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES USUARIO(id_usuario)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- ==========================================
+-- 3. TABELA PAGAMENTO
+-- ==========================================
+
+CREATE TABLE PAGAMENTO (
+    codigo_pagamento VARCHAR(50) PRIMARY KEY,
+    tipo VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255)
+);
+
+-- ==========================================
+-- 4. TABELA CONTA
+-- ==========================================
+
+CREATE TABLE CONTA (
+    id_centro VARCHAR(50) NOT NULL,
+    codigo_pagamento VARCHAR(50) NOT NULL,
+    id_usuario VARCHAR(50) NOT NULL,
+    data_pagamento DATE,
+    valor DECIMAL(12,2) NOT NULL,
+    status VARCHAR(30) NOT NULL,
+
+    PRIMARY KEY (id_centro, codigo_pagamento),
+
+    CONSTRAINT fk_conta_centro
+        FOREIGN KEY (id_centro)
+        REFERENCES CENTRO(id_centro)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_conta_pagamento
+        FOREIGN KEY (codigo_pagamento)
+        REFERENCES PAGAMENTO(codigo_pagamento)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_conta_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES USUARIO(id_usuario)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_conta_valor
+        CHECK (valor >= 0),
+
+    CONSTRAINT chk_conta_status
+        CHECK (status IN ('PENDENTE', 'PAGO', 'VENCIDO'))
+);
+
+-- ==========================================
+-- 5. TABELA RECEBIMENTO
+-- ==========================================
+
+CREATE TABLE RECEBIMENTO (
+    codigo_recebimento VARCHAR(50) PRIMARY KEY,
+    id_centro VARCHAR(50) NOT NULL,
+    codigo_pagamento VARCHAR(50) NOT NULL,
+    origem VARCHAR(150) NOT NULL,
+    cpf_cnpj VARCHAR(20),
+    data_recebimento DATE NOT NULL,
+    valor_recebido DECIMAL(12,2) NOT NULL,
+    descricao VARCHAR(255),
+
+    CONSTRAINT fk_recebimento_conta
+        FOREIGN KEY (id_centro, codigo_pagamento)
+        REFERENCES CONTA(id_centro, codigo_pagamento)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_recebimento_valor
+        CHECK (valor_recebido >= 0)
+);
+
+-- ==========================================
+-- FIM DA CRIACAO DO BANCO
+-- ==========================================
+
+USE use_sp;
+SHOW TABLES;
+
+DESCRIBE USUARIO;
+DESCRIBE CENTRO;
+DESCRIBE PAGAMENTO;
+DESCRIBE CONTA;
+DESCRIBE RECEBIMENTO;*/
