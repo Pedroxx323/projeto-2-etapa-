@@ -24,6 +24,14 @@ public class ContaController {
         return service.cadastrar(nova);
     }
 
+    @PostMapping("/{contaId}/pagamento")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Pagamento registrarPagamento(
+            @PathVariable("contaId") @Size(max = 36) String contaId,
+            @Valid @RequestBody NovoPagamento novo) {
+        return service.registrarPagamento(contaId, novo);
+    }
+
     @GetMapping
     public List<Conta> listar(@RequestParam("centroId") @NotBlank @Size(max = 50) String centroId) {
         return service.listarPorCentro(centroId);

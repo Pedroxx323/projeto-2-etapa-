@@ -43,3 +43,23 @@ e pode conter várias contas da mesma categoria.
 | Campos inválidos | `400 Bad Request` |
 | Centro inexistente | `404 Not Found` |
 | Serviço de cadastros indisponível | `503 Service Unavailable` |
+
+## Registrar a baixa manual
+
+Use o ID retornado pelo cadastro. Informe a data em que o pagamento foi
+realizado e a forma usada, por exemplo `PIX` ou `BOLETO`.
+
+```http
+POST /contas/{contaId}/pagamento
+Content-Type: application/json
+
+{
+  "dataPagamento": "2026-11-17",
+  "formaPagamento": "PIX"
+}
+```
+
+A resposta `201 Created` contém o ID da conta, a data, a forma de pagamento
+e o valor integral da conta. A listagem passa a exibir o status `PAGA`.
+Datas futuras ou campos inválidos retornam `400`, uma conta inexistente
+retorna `404` e uma conta já paga retorna `409`.
