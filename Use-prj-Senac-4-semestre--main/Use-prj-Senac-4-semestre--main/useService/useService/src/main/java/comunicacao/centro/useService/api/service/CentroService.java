@@ -6,6 +6,7 @@ import comunicacao.centro.useService.api.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CentroService {
@@ -21,6 +22,10 @@ public class CentroService {
 
     public List<Centro> listarCentros() {
         return centroRepository.findAll();
+    }
+
+    public Optional<Centro> buscarPorId(String idCentro) {
+        return centroRepository.findById(idCentro);
     }
 
     public Centro cadastrarCentro(Centro centro) {

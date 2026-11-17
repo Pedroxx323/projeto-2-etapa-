@@ -23,6 +23,11 @@ public class CentroController {
         return centroService.listarCentros();
     }
 
+    @GetMapping("/{idCentro}")
+    public ResponseEntity<Centro> buscarPorId(@PathVariable("idCentro") String idCentro) {
+        return ResponseEntity.of(centroService.buscarPorId(idCentro));
+    }
+
     @PostMapping
     public ResponseEntity<?> cadastrarCentro(@RequestBody Centro centro) {
 
