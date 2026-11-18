@@ -1,4 +1,4 @@
-package comunicacao.centro.usefinanceiro.service;
+package comunicacao.centro.usefinanceiro.api.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

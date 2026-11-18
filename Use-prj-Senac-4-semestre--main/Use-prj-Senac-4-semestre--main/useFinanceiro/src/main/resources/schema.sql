@@ -16,3 +16,12 @@ CREATE TABLE IF NOT EXISTS pagamento_conta (
     valor DECIMAL(12, 2) NOT NULL,
     CONSTRAINT fk_pagamento_conta FOREIGN KEY (conta_id) REFERENCES conta (id)
 );
+
+CREATE TABLE IF NOT EXISTS doacao (
+    id CHAR(36) PRIMARY KEY,
+    centro_id VARCHAR(50) NOT NULL,
+    origem VARCHAR(150),
+    valor DECIMAL(12, 2) NOT NULL,
+    data_recebimento DATE NOT NULL,
+    INDEX idx_doacao_centro_data (centro_id, data_recebimento)
+);

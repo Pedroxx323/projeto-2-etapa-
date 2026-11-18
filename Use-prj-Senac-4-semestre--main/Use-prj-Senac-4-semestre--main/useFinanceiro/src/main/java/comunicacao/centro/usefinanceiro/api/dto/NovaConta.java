@@ -1,4 +1,4 @@
-package comunicacao.centro.usefinanceiro.api;
+package comunicacao.centro.usefinanceiro.api.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;

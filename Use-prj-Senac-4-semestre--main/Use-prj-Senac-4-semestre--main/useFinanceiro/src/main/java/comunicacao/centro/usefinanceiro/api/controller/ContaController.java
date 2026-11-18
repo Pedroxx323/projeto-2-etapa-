@@ -1,6 +1,10 @@
-package comunicacao.centro.usefinanceiro.api;
+package comunicacao.centro.usefinanceiro.api.controller;
 
-import comunicacao.centro.usefinanceiro.service.ContaService;
+import comunicacao.centro.usefinanceiro.api.model.Conta;
+import comunicacao.centro.usefinanceiro.api.dto.NovaConta;
+import comunicacao.centro.usefinanceiro.api.model.Pagamento;
+import comunicacao.centro.usefinanceiro.api.dto.NovoPagamento;
+import comunicacao.centro.usefinanceiro.api.service.ContaService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

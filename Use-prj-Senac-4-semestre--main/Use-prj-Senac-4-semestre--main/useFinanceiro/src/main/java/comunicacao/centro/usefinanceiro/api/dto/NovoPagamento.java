@@ -1,4 +1,4 @@
-package comunicacao.centro.usefinanceiro.api;
+package comunicacao.centro.usefinanceiro.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
